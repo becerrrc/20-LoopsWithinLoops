@@ -3,15 +3,15 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Raymond Becerra.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
+    #run_test_draw_L()
     run_test_draw_wall_on_right()
 
 
@@ -80,9 +80,28 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    center = circle.center
+    for k in range(3):
+        for j in range(r):
+            circ = rg.Circle(center,circle.radius)
+            circ.fill_color = circle.fill_color
+            circ.attach_to(window)
+            window.render(0.1)
+            center.move_by(0,2*circ.radius)
+        center.move_by(2*circ.radius,-2*r*circ.radius)
+    center.move_by(-2*3*circ.radius,2*r*circ.radius)
+    for _ in range(3):
+        for _ in range(c+3):
+            circ = rg.Circle(center,circle.radius)
+            circ.fill_color = circle.fill_color
+            circ.attach_to(window)
+            window.render(0.1)
+            center.move_by(2*circ.radius,0)
+        center.move_by(-2*(c+3)*circ.radius,2*circ.radius)
+
 
 
 def run_test_draw_wall_on_right():
@@ -121,9 +140,17 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    rect_c = rg.Rectangle(rectangle.corner_1,rectangle.corner_2)
+    for k in range(n):
+        for j in range(k+1):
+            rect = rg.Rectangle(rect_c.corner_1,rect_c.corner_2)
+            rect.move_by(-j * rectangle.get_width(), 0)
+            rect.attach_to(window)
+            window.render(0.1)
+        rect_c.move_by(0,rectangle.get_height())
 
 
 # ----------------------------------------------------------------------
